@@ -19,7 +19,7 @@ local loaders = {}
 --
 local utility = {}
 --
-local check_exploit = (syn and "Synapse") or (KRNL_LOADED and "Krnl") or (isourclosure and "ScriptWare") or nil
+local check_exploit = identifyexecutor()
 local plrs = game:GetService("Players")
 local cre = game:GetService("CoreGui")
 local rs = game:GetService("RunService")
@@ -147,13 +147,11 @@ function library:new(props)
 			DisplayOrder = 9999,
 			ResetOnSpawn = false,
 			ZIndexBehavior = "Global",
-			Parent = cre
+			Parent = gethui and gethui() or cre
 		}
 	)
 	--
-        if (check_exploit == "Synapse" and syn.request) then
-	syn.protect_gui(screen)
-        end
+        
 	-- 1
 	local outline = utility.new(
 		"Frame",
@@ -558,12 +556,9 @@ function library:loader(props)
 			DisplayOrder = 9999,
 			ResetOnSpawn = false,
 			ZIndexBehavior = "Global",
-			Parent = cre
+			Parent = gethui and gethui() or cre
 		}
 	)
-        if (check_exploit == "Synapse" and syn.request) then
-	syn.protect_gui(screen)
-        end
 	--
 	local outline = utility.new(
 		"Frame",
